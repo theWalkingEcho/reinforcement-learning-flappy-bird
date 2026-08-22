@@ -4,6 +4,8 @@ A modular, clean-architecture Reinforcement Learning (RL) platform built in Pyth
 
 This project trains an AI agent to master the game of **Flappy Bird** with pipes of dynamic, varied heights.
 
+> Short demo: Watch a short clip of the trained agent playing in [assets/Flappy Bird RL.mp4](assets/Flappy%20Bird%20RL.mp4).
+
 It provides two algorithms:
 1. **Tabular Q-Learning** (using discretized continuous state space)
 2. **Deep Q-Learning / DQN** (using PyTorch Multi-Layer Perceptrons with Replay Memory and Target Networks)
