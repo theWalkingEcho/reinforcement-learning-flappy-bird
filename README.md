@@ -4,10 +4,12 @@ A modular, clean-architecture Reinforcement Learning (RL) platform built in Pyth
 
 This project trains an AI agent to master the game of **Flappy Bird** with pipes of dynamic, varied heights.
 
-<video controls controlsList="nodownload" loop playsinline width="640">
-   <source src="assets/Flappy%20Bird%20RL.mp4" type="video/mp4">
-   Your browser does not support the video tag.
-</video>
+[![Play training video](assets/thumb.svg)](assets/Flappy%20Bird%20RL.mp4)
+
+<!--
+Clicking the thumbnail opens the raw MP4 in the browser where audio will play.
+GitHub strips the <video> tag from README; this thumbnail links to the file instead.
+-->
 
 It provides two algorithms:
 1. **Tabular Q-Learning** (using discretized continuous state space)
