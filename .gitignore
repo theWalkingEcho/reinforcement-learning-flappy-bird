@@ -1,0 +1,125 @@
+# ==============================
+# Sensitive Information & Keys
+# ==============================
+.env
+.env.*
+*.env
+*.key
+*.pem
+*.p12
+*.pfx
+*.cer
+*.crt
+secrets.json
+secrets.yaml
+secrets.yml
+config/secrets.*
+credentials.json
+credentials.yaml
+api_keys.py
+api_keys.json
+
+# ==============================
+# Trained Models & Checkpoints
+# ==============================
+models/
+*.pt
+*.pth
+*.h5
+*.hdf5
+*.pkl
+*.pickle
+*.ckpt
+*.safetensors
+*.onnx
+*.pb
+*.tflite
+*.bin
+checkpoints/
+saved_models/
+runs/
+
+# ==============================
+# Logs & Outputs
+# ==============================
+logs/
+*.log
+*.out
+tensorboard/
+tb_logs/
+wandb/
+mlruns/
+
+# ==============================
+# Python
+# ==============================
+__pycache__/
+*.py[cod]
+*$py.class
+# Compiled CPython extensions
+*.cpython-*.pyc
+*.cpython-*.pyo
+*.cpython-*.so
+*.cpython-*.pyd
+# C extensions
+*.so
+*.pyd
+.Python
+build/
+dist/
+*.egg-info/
+.eggs/
+*.egg
+.installed.cfg
+pip-log.txt
+pip-delete-this-directory.txt
+
+# ==============================
+# Virtual Environments
+# ==============================
+env/
+venv/
+.venv/
+ENV/
+env.bak/
+venv.bak/
+.conda/
+conda-env/
+Pipfile.lock
+
+# ==============================
+# Jupyter Notebooks
+# ==============================
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# ==============================
+# IDE & Editor Files
+# ==============================
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+*.swp
+*.swo
+*~
+
+# ==============================
+# OS Files
+# ==============================
+.DS_Store
+Thumbs.db
+desktop.ini
+ehthumbs.db
+
+# ==============================
+# Data Files (large/sensitive)
+# ==============================
+*.csv
+*.tsv
+*.parquet
+*.feather
+data/raw/
+data/processed/
+datasets/
+implementation_plan.md
