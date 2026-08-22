@@ -203,6 +203,11 @@ The evaluation module (`evaluate_metrics.py`) provides an extensive analysis fra
 7. **Sample Efficiency**: Records the cumulative environment steps required to reach key scoring thresholds (e.g., Score $\ge$ 1, 5, 10, 20, 30, 50).
 8. **Summary Statistics**: A unified grid showing mean score, standard deviation, max score, medians, percentiles, average steps, and cumulative steps.
 
+### 2. Performance Outcome After 100,000 Episodes
+1. **Q-Learning proved to be the best performer**, reaching a **best score of 217+** in the performance evaluation after training for 100,000 episodes.
+2. **DQN failed to match this performance**, reaching only a **best score of 5** after training for 100,000 episodes.
+3. This outcome highlights that, in this environment and training setup, the discretized tabular Q-Learning approach was substantially more effective than the deep Q-network under the same long-training regime.
+
 ## Troubleshooting & Tips
 
 - **Windows Path Limits**: If installing PyTorch in an isolated venv encounters path length errors (`WinError 206`), create the virtual environment using `--system-site-packages` as shown in the installation guide.
