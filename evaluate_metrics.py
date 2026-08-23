@@ -24,6 +24,7 @@ import sys
 import math
 import random
 import argparse
+from datetime import datetime
 from typing import List, Optional
 from dataclasses import dataclass
 
@@ -48,7 +49,7 @@ NUM_EPISODES  = 100           # default eval episodes per agent
 GAMMA         = 0.99          # discount factor for discounted reward metric
 CONV_THRESHOLD = 5            # pipes: MA(10) >= this => converged
 MA_WINDOW     = 10
-OUT_PATH      = os.path.join(LOGS_DIR, "rl_evaluation_report.png")
+OUT_PATH      = os.path.join(LOGS_DIR, f"rl_evaluation_report_{datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}.png")
 
 # Palette (dark theme)
 BG_DARK   = "#0d1117"

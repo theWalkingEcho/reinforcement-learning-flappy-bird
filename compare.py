@@ -5,6 +5,7 @@ import os
 import csv
 import argparse
 import matplotlib
+from datetime import datetime
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from training.metrics_logger import EpisodeMetrics, MetricsLogger
@@ -94,7 +95,7 @@ def compare_agents() -> None:
     ax2.legend(loc="upper left")
 
     plt.tight_layout()
-    plot_path = os.path.join(LOGS_DIR, "q_vs_dqn_comparison.png")
+    plot_path = os.path.join(LOGS_DIR, f"q_vs_dqn_comparison_{datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}.png")
     plt.savefig(plot_path, facecolor=fig.get_facecolor(), edgecolor="none")
     plt.close(fig)
 

@@ -4,7 +4,7 @@ A modular, clean-architecture Reinforcement Learning (RL) platform built in Pyth
 
 This project trains an AI agent to master the game of **Flappy Bird** with pipes of dynamic, varied heights.
 
-> Short demo: Watch a short clip of the trained agent playing in [assets/Flappy Bird RL.mp4](assets/Flappy%20Bird%20RL.mp4).
+> Short demo: Watch short clips of the trained agent playing in [assets/](assets/).
 
 It provides two algorithms:
 1. **Tabular Q-Learning** (using discretized continuous state space)
@@ -211,9 +211,10 @@ The evaluation module (`evaluate_metrics.py`) provides an extensive analysis fra
 8. **Summary Statistics**: A unified grid showing mean score, standard deviation, max score, medians, percentiles, average steps, and cumulative steps.
 
 ### 2. Performance Outcome After 100,000 Episodes
-1. **Q-Learning proved to be the best performer**, reaching a **best score of 217+** in the performance evaluation after training for 100,000 episodes.
-2. **DQN failed to match this performance**, reaching only a **best score of 5** after training for 100,000 episodes.
+1. **Q-Learning proved to be the best performer**, reaching a **best score of 785+** in the performance evaluation after training for 100,000 episodes.
+2. **DQN failed to match this performance**, reaching only a **best score of 6** after training for 100,000 episodes.
 3. This outcome highlights that, in this environment and training setup, the discretized tabular Q-Learning approach was substantially more effective than the deep Q-network under the same long-training regime.
+4. These results represent the performance observed at 100,000 episodes; with additional training, further improvements may be possible, particularly as the agents continue to explore and refine their policies.
 
 ## Troubleshooting & Tips
 
