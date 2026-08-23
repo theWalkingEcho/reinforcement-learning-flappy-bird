@@ -2,34 +2,54 @@
 Head-to-head performance comparison between Q-Learning and Deep Q-Learning (DQN).
 """
 import os
+import csv
 import argparse
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
-from agents.q_learning.q_agent import QLearningAgent
-from agents.dqn.dqn_agent import DQNAgent
-from training.trainer import RLTrainer
+from training.metrics_logger import EpisodeMetrics, MetricsLogger
 from utils.config import LOGS_DIR
 
-def compare_agents(episodes: int = 200) -> None:
+def load_metrics(filepath: str, agent_name: str) -> MetricsLogger:
+    """Load previously exported training metrics without changing the CSV."""
+    if not os.path.exists(filepath):
+        raise FileNotFoundError(
+            f"Training metrics not found at {filepath}. "
+            "Run training first; comparison will not retrain or create metrics."
+        )
+
+    logger = MetricsLogger(agent_name=agent_name)
+    with open(filepath, newline="") as metrics_file:
+        for row in csv.DictReader(metrics_file):
+            logger.history.append(EpisodeMetrics(
+                episode=int(row["episode"]),
+                score=int(row["score"]),
+                total_reward=float(row["total_reward"]),
+                steps=int(row["steps"]),
+                avg_loss=float(row["avg_loss"]),
+                epsilon=float(row["epsilon"]),
+                best_score=int(row["best_score"]),
+            ))
+
+    if not logger.history:
+        raise ValueError(f"Training metrics file is empty: {filepath}")
+    logger.best_score = max(metric.best_score for metric in logger.history)
+    return logger
+
+
+def compare_agents() -> None:
     print("==================================================")
     print("      RUNNING HEAD-TO-HEAD ALGORITHM COMPARISON    ")
-    print(f"      Episodes per agent: {episodes}")
+    print("      Using existing training checkpoints and CSV metrics")
     print("==================================================")
 
-    # 1. Train Tabular Q-Learning Agent
-    print("\n--- Training Q-Learning Agent ---")
-    q_agent = QLearningAgent()
-    q_trainer = RLTrainer(agent=q_agent, mode_name="Q-Learning")
-    q_logger = q_trainer.run_headless_training(num_episodes=episodes)
-    q_logger.export_csv(os.path.join(LOGS_DIR, "q_learning_metrics.csv"))
+    # 1. Load Tabular Q-Learning metrics
+    print("\n--- Loading Q-Learning metrics ---")
+    q_logger = load_metrics(os.path.join(LOGS_DIR, "q_learning_metrics.csv"), "Q-Learning")
 
-    # 2. Train Deep Q-Network Agent
-    print("\n--- Training Deep Q-Learning (DQN) Agent ---")
-    dqn_agent = DQNAgent()
-    dqn_trainer = RLTrainer(agent=dqn_agent, mode_name="DQN")
-    dqn_logger = dqn_trainer.run_headless_training(num_episodes=episodes)
-    dqn_logger.export_csv(os.path.join(LOGS_DIR, "dqn_metrics.csv"))
+    # 2. Load Deep Q-Network metrics
+    print("\n--- Loading DQN metrics ---")
+    dqn_logger = load_metrics(os.path.join(LOGS_DIR, "dqn_metrics.csv"), "DQN")
 
     # 3. Plot Comparison Charts
     print("\nGenerating comparative plots...")
@@ -89,6 +109,5 @@ def compare_agents(episodes: int = 200) -> None:
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Compare Q-Learning vs DQN")
-    parser.add_argument("--episodes", type=int, default=150, help="Number of test episodes")
     args = parser.parse_args()
-    compare_agents(episodes=args.episodes)
+    compare_agents()

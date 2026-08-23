@@ -166,14 +166,12 @@ env\Scripts\python.exe main.py --mode qlearning --episodes 500 --headless
 ```
 
 ### 4. Head-to-Head Algorithm Comparison
-Run a side-by-side benchmark comparing Q-Learning vs DQN for N episodes:
+Generate a side-by-side comparison from the existing training CSV files:
 ```powershell
-env\Scripts\python.exe compare.py --episodes 200
+env\Scripts\python.exe compare.py
 ```
-*Outputs generated:*
-- `logs/q_learning_metrics.csv`: CSV log of Q-Learning training metrics.
-- `logs/dqn_metrics.csv`: CSV log of DQN training metrics.
-- `logs/q_vs_dqn_comparison.png`: Side-by-side comparative plots (Scores & Cumulative Rewards).
+This command is read-only for the trained models and CSV metrics. It only generates
+`logs/q_vs_dqn_comparison.png`.
 
 ### 5. Standalone Model Evaluation & RL Metrics Report
 Evaluate your trained model checkpoints using pure greedy policies (no exploration) to see how they perform under standard RL evaluation metrics:
@@ -190,6 +188,11 @@ Parameters (Optional):
 
 *Outputs generated:*
 - `logs/rl_evaluation_report.png`: High-fidelity, 8-panel visualization dashboard summarizing all evaluation metrics.
+
+Evaluation always loads the existing checkpoint files and never trains or overwrites
+`models/q_table.pkl`, `models/dqn_model.pth`, `logs/q_learning_metrics.csv`, or
+`logs/dqn_metrics.csv`. If a checkpoint is missing or invalid, evaluation stops with
+an error instead of using an untrained agent.
 
 ---
 

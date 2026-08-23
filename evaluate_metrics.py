@@ -535,13 +535,14 @@ def main():
     # ── Load Q-Learning agent ────────────────────
     print("\n[1/2] Loading Q-Learning agent...")
     q_agent = QLearningAgent()
-    if os.path.exists(args.q_model):
-        q_agent.load(args.q_model)
-        print(f"      Checkpoint loaded: {args.q_model}")
-        if hasattr(q_agent, "q_table"):
-            print(f"      Q-Table size: {len(q_agent.q_table)} states")
-    else:
-        print(f"      WARNING: No checkpoint at {args.q_model} - running with random policy")
+    if not os.path.exists(args.q_model) or not q_agent.load(args.q_model):
+        raise RuntimeError(
+            f"Could not load Q-Learning checkpoint at {args.q_model}. "
+            "Evaluation requires an existing trained checkpoint."
+        )
+    print(f"      Checkpoint loaded: {args.q_model}")
+    if hasattr(q_agent, "q_table"):
+        print(f"      Q-Table size: {len(q_agent.q_table)} states")
 
     print(f"\n      Running {args.episodes} greedy evaluation episodes...")
     q_results = run_evaluation(q_agent, args.episodes, args.seed, "Q-Learning")
@@ -549,11 +550,12 @@ def main():
     # ── Load DQN agent ───────────────────────────
     print("\n[2/2] Loading DQN agent...")
     dqn_agent = DQNAgent()
-    if os.path.exists(args.dqn_model):
-        dqn_agent.load(args.dqn_model)
-        print(f"      Checkpoint loaded: {args.dqn_model}")
-    else:
-        print(f"      WARNING: No checkpoint at {args.dqn_model} - running with random policy")
+    if not os.path.exists(args.dqn_model) or not dqn_agent.load(args.dqn_model):
+        raise RuntimeError(
+            f"Could not load DQN checkpoint at {args.dqn_model}. "
+            "Evaluation requires an existing trained checkpoint."
+        )
+    print(f"      Checkpoint loaded: {args.dqn_model}")
 
     print(f"\n      Running {args.episodes} greedy evaluation episodes...")
     dqn_results = run_evaluation(dqn_agent, args.episodes, args.seed, "DQN")

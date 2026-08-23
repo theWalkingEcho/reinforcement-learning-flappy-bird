@@ -35,11 +35,17 @@ class RLEvaluator:
                 model_path = DQNConfig.MODEL_PATH
 
         self.model_path = model_path
-        if os.path.exists(model_path):
-            self.agent.load(model_path)
-            print(f"[EVALUATOR] Loaded trained checkpoint from: {model_path}")
-        else:
-            print(f"[EVALUATOR] Warning: No checkpoint found at {model_path}. Running with initialized weights.")
+        if not os.path.exists(model_path):
+            raise FileNotFoundError(
+                f"No trained checkpoint found at {model_path}. "
+                "Evaluation requires an existing checkpoint and will not train a new agent."
+            )
+        if not self.agent.load(model_path):
+            raise RuntimeError(
+                f"Could not load trained checkpoint from {model_path}. "
+                "Evaluation stopped to protect the existing artifacts."
+            )
+        print(f"[EVALUATOR] Loaded trained checkpoint from: {model_path}")
 
         self.current_episode = 1
         self.speed_boost = False
